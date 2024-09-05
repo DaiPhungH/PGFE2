@@ -1,0 +1,198 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700);
+@import url(https://fonts.googleapis.com/css?family=Arimo:300,400,400italic,700,700italic);
+
+/* ===================================== Basic CSS ==================================== */
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  outline: none;
+  color: #444;
+}
+
+a:hover {
+  color: #444;
+}
+
+ul {
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+a:hover,
+a:focus,
+input,
+textarea {
+  text-decoration: none;
+  outline: none;
+}
+
+._form_05 {
+  background: url(../../../images/banner1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 40px 0;
+  position: relative;
+  display: flex;
+  align-items: center; 
+  justify-content: center; 
+  height: 100vh;
+  z-index: 2;
+  overflow: hidden;
+}
+
+._form_05::before {
+  position: absolute;
+  content: "";
+  background: rgba(0, 0, 0, 0.9);
+  height: 100%;
+  width: 100%;
+  left: 0;
+  z-index: 1;
+  top: 0;
+}
+
+._form-05-box {
+  width: 100%;
+  max-width: 500px; /* Đặt kích thước khung đăng ký phù hợp */
+  position: relative;
+  display: block;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 6px;
+  z-index: 3;
+  padding: 20px;
+  box-sizing: border-box; /* Đảm bảo padding được tính vào kích thước khung */
+}
+
+._mn_df {
+  background: #ffffff; /* Đặt nền thành màu trắng */
+  border-radius: 6px;
+}
+
+._form_05_logo,
+.main-head {
+  margin: 20px 0;
+  text-align: center;
+}
+
+._form_05_logo h2 {
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+._form_05_logo p {
+  color: #fff;
+  line-height: 22px;
+  margin: 30px 0 0 0;
+  font-size: 0.9rem;
+}
+
+.main-head h2 {
+  font-size: 18px;
+  color: #000;
+}
+
+.form-group {
+  padding: 15px 0;
+  width: 100%;
+  position: relative;
+}
+
+.form-check-label,
+.form-group a {
+  font-size: 15px;
+}
+
+.form-group p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.form-control {
+  min-height: 45px;
+  padding: 10px 15px;
+  border: 1px solid #ddd; /* Màu viền mặc định */
+  border-radius: 6px;
+  box-shadow: none; /* Loại bỏ box-shadow */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Thêm hiệu ứng chuyển tiếp cho viền */
+}
+
+.form-control:focus {
+  border-color: #007bff; /* Màu viền khi ô input được chọn */
+  box-shadow: 0 0 0 0.2rem rgba(38, 43, 72, 0.25); /* Tạo hiệu ứng bóng mờ khi ô input được chọn */
+}
+
+/* Xóa bỏ lớp .error và viền đỏ khi có lỗi */
+.form-control.error {
+  border-color: #ddd; /* Màu viền mặc định khi có lỗi */
+}
+
+.form-control.error:focus {
+  border-color: #007bff; /* Màu viền khi có lỗi và ô input được chọn */
+  box-shadow: 0 0 0 0.2rem rgba(38, 43, 72, 0.25); /* Tạo hiệu ứng bóng mờ khi ô input được chọn */
+}
+
+._btn_04 {
+  display: inline-block;
+  width: 45%; /* Đặt kích thước nút cho phù hợp */
+  padding: 12px 0;
+  background: #01cc66;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 16px;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+._btn_04:hover {
+  background-color: #019c4d; /* Thay đổi màu nền khi di chuột qua nút */
+}
+
+._btn_04:nth-child(2) {
+  background: #007bff;
+}
+
+._btn_04:nth-child(2):hover {
+  background-color: #0056b3; /* Thay đổi màu nền khi di chuột qua nút login */
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Khoảng cách giữa hai nút */
+}
+
+@media screen and (max-width: 767px) {
+  ._form_05 {
+    height: auto;
+    padding: 20px 0;
+  }
+  ._form-05-box {
+    width: 90%;
+    padding: 20px;
+  }
+}
