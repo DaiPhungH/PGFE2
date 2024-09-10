@@ -195,4 +195,9 @@ textarea {
     width: 90%;
     padding: 20px;
   }
+}/* file CSS tùy chỉnh, ví dụ: RegisterComponent.css */
+.input-white {
+  background-color: #fff;
+  color: #000;
 }
+

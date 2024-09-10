@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import Input from "../../UI/Input";
 import { Link, useNavigate } from 'react-router-dom';
 
-const RegisterComponent = ({ changeLoginForm, accounts, addAccount }) => {
+
+const RegisterComponent = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [repassword, setRePassword] = useState("");
@@ -13,13 +13,9 @@ const RegisterComponent = ({ changeLoginForm, accounts, addAccount }) => {
   const [showNotification, setShowNotification] = useState(false);
   const navigate = useNavigate();
 
-  const validateEmail = (email) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
+  const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-  const validatePassword = (password) => {
-    return /[a-zA-Z]/.test(password) && /[0-9]/.test(password);
-  };
+  const validatePassword = (password) => /[a-zA-Z]/.test(password) && /[0-9]/.test(password);
 
   const clearRegisterForm = () => {
     setUsername("");
@@ -28,7 +24,9 @@ const RegisterComponent = ({ changeLoginForm, accounts, addAccount }) => {
     setEmail("");
   };
 
-  const signUpHandler = () => {
+  const signUpHandler = (e) => {
+    e.preventDefault();
+
     if (!validateEmail(email)) {
       setMessage("Định dạng email không hợp lệ");
       setMessageStatus("error");
@@ -48,21 +46,16 @@ const RegisterComponent = ({ changeLoginForm, accounts, addAccount }) => {
       return;
     }
 
-    var list = JSON.parse(localStorage.getItem("listUser"));
-    if (list) {
-      let usernameExists = list.some(user => user.username === username);
-      if (usernameExists) {
-        setMessage("Tên người dùng đã tồn tại");
-        setMessageStatus("error");
-        setShowNotification(true);
-        return;
-      }
-      list.push({ username, password });
-      localStorage.setItem("listUser", JSON.stringify(list));
-    } else {
-      var newList = [{ username, password }];
-      localStorage.setItem("listUser", JSON.stringify(newList));
+    const list = JSON.parse(localStorage.getItem("listUser")) || [];
+    if (list.some(user => user.username === username)) {
+      setMessage("Tên người dùng đã tồn tại");
+      setMessageStatus("error");
+      setShowNotification(true);
+      return;
     }
+
+    list.push({ username, password });
+    localStorage.setItem("listUser", JSON.stringify(list));
 
     setMessage("Đăng ký thành công");
     setMessageStatus("success");
@@ -71,9 +64,7 @@ const RegisterComponent = ({ changeLoginForm, accounts, addAccount }) => {
     setTimeout(() => navigate('/login'), 1500);
   };
 
-  const closeNotification = () => {
-    setShowNotification(false);
-  };
+  const closeNotification = () => setShowNotification(false);
 
   return (
     <>
@@ -84,104 +75,73 @@ const RegisterComponent = ({ changeLoginForm, accounts, addAccount }) => {
           </div>
         </div>
       )}
-      <section className="_form_05">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <div className="_form-05-box">
-                <div className="row">
-                  <div className="col-sm-12 _nb-pl">
-                    <div className="_mn_df">
-                      <div className="main-head">
-                        <h2>Đăng ký tài khoản mới</h2>
-                      </div>
-
-                      <div className="form-group">
-                        <Input
-                          title="Tên người dùng"
-                          displayHorizon={true}
-                          value={username}
-                          setValue={setUsername}
-                          type="text"
-                          name="username"
-                          className="form-control"
-                          placeholder="Nhập tên người dùng"
-                          required
-                          aria-required="true"
-                        />
-                      </div>
-
-                      <div className="form-group">
-                        <Input
-                          title="Mật khẩu"
-                          displayHorizon={true}
-                          value={password}
-                          setValue={setPassword}
-                          type="password"
-                          name="password"
-                          className="form-control"
-                          placeholder="Nhập mật khẩu"
-                          required
-                          aria-required="true"
-                        />
-                        <small className="form-text text-muted">
-                          Mật khẩu phải chứa cả chữ cái và số.
-                        </small>
-                      </div>
-
-                      <div className="form-group">
-                        <Input
-                          title="Nhập lại mật khẩu"
-                          displayHorizon={true}
-                          value={repassword}
-                          setValue={setRePassword}
-                          type="password"
-                          name="repassword"
-                          className="form-control"
-                          placeholder="Nhập lại mật khẩu"
-                          required
-                          aria-required="true"
-                        />
-                      </div>
-
-                      <div className="form-group">
-                        <Input
-                          title="Email"
-                          displayHorizon={true}
-                          value={email}
-                          setValue={setEmail}
-                          type="email"
-                          name="email"
-                          className="form-control"
-                          placeholder="Nhập email"
-                          required
-                          aria-required="true"
-                        />
-                      </div>
-
-                      <div className="form-group">
-                        <div className="row">
-                          <div className="col-3">
-                            <button
-                              className="btn btn-secondary"
-                              onClick={signUpHandler}
-                            >
-                              Đăng ký
-                            </button>
-                          </div>
-                          <div className="col-9">
-                            <Link to="/login">
-                              <button
-                                className="btn btn-primary"
-                              >
-                                Đăng nhập
-                              </button>
-                            </Link>
-                          </div>
-                        </div>
-                      </div>
+      <section className="vh-100 gradient-custom">
+        <div className="container h-100 d-flex align-items-center justify-content-center">
+          <div className="row w-100">
+            <div className="col-lg-6 col-md-8 col-12 mx-auto">
+              <div className="card bg-dark text-white border-0 rounded">
+                <div className="card-body p-5">
+                  <h2 className="fw-bold mb-4 text-center">Đăng ký tài khoản mới</h2>
+                  <form onSubmit={signUpHandler}>
+                    <div className="mb-4">
+                      <label htmlFor="username" className="form-label">Tên người dùng</label>
+                      <input
+                        type="text"
+                        id="username"
+                        className="form-control input-white"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Nhập tên người dùng"
+                        required
+                      />
                     </div>
-                  </div>
+
+                    <div className="mb-4">
+                      <label htmlFor="email" className="form-label">Email</label>
+                      <input
+                        type="email"
+                        id="email"
+                        className="form-control input-white"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Nhập email"
+                        required
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label htmlFor="password" className="form-label">Mật khẩu</label>
+                      <input
+                        type="password"
+                        id="password"
+                        className="form-control input-white"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Nhập mật khẩu"
+                        required
+                      />
+                      <small className="form-text" style={{ color: '#ffffff' }}>
+                        Mật khẩu gồm chữ cái và số.
+                      </small>
+
+                    </div>
+
+                    <div className="mb-4">
+                      <label htmlFor="repassword" className="form-label">Nhập lại mật khẩu</label>
+                      <input
+                        type="password"
+                        id="repassword"
+                        className="form-control input-white"
+                        value={repassword}
+                        onChange={(e) => setRePassword(e.target.value)}
+                        placeholder="Nhập lại mật khẩu"
+                        required
+                      />
+                    </div>
+
+                    <button type="submit" className="btn btn-primary w-100 mb-2">Đăng ký</button>
+                    <Link to="/login" className="btn btn-secondary w-100">Đăng nhập</Link>
+                  </form>
                 </div>
               </div>
             </div>

@@ -95,8 +95,8 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
     slickArrowLeft: {
       position: 'absolute',
       top: '50%',
-      left: '10px', // Position left arrow
-      transform: 'translateY(-50%)', // Center vertically
+      left: '10px', 
+      transform: 'translateY(-50%)', 
       cursor: 'pointer'
     },
     slickArrowRight: {

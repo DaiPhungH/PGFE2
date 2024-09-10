@@ -1,13 +1,11 @@
 import { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import Input from "../UI/Input";
 import { Link, useNavigate } from "react-router-dom";
 import "./styles.css";
 
 const LoginComponent = ({ accounts, onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const navigate = useNavigate();
 
@@ -24,84 +22,80 @@ const LoginComponent = ({ accounts, onLogin }) => {
     }
 
     if (loginSuccess) {
-      navigate('/');
+      navigate("/");
     } else {
       setErrorMessage("Tên người dùng hoặc mật khẩu không chính xác");
     }
   };
 
   return (
-    <section className="_form_05">
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-lg-6 col-md-8 col-sm-10">
-            <div className="_form-05-box">
-              <div className="main-head">
-                <h2>Login to your account</h2>
-              </div>
+    <section className="vh-100 gradient-custom">
+      <div className="container py-5 h-100">
+        <div className="row d-flex justify-content-center align-items-center h-100">
+          <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+            <div className="card bg-dark text-white" style={{ borderRadius: "1rem" }}>
+              <div className="card-body p-5 text-center">
+                <div className="mb-md-5 mt-md-4 pb-5">
+                  <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
+                  <p className="text-white-50 mb-5">Please enter your login and password!</p>
 
-              {errorMessage && (
-                <div className="alert alert-danger">
-                  {errorMessage}
-                </div>
-              )}
+                  {errorMessage && (
+                    <div className="alert alert-danger">
+                      {errorMessage}
+                    </div>
+                  )}
 
-              <div className="form-group">
-                <Input
-                  title="Username"
-                  displayHorizon={true}
-                  value={username}
-                  setValue={setUsername}
-                  type="email"
-                  name="email"
-                  className="form-control"
-                  placeholder="Enter Email"
-                  required
-                  aria-required="true"
-                />
-              </div>
+                  <div className="form-outline form-white mb-4">
+                    <input
+                      type="email"
+                      id="typeEmailX"
+                      className="form-control form-control-lg"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      placeholder="Enter Email"
+                      required
+                      aria-required="true"
+                    />
+                    <label className="form-label" htmlFor="typeEmailX">Tên đăng nhập</label>
+                  </div>
 
-              <div className="form-group">
-                <Input
-                  title="Password"
-                  displayHorizon={true}
-                  value={password}
-                  setValue={setPassword}
-                  type="password"
-                  name="password"
-                  className="form-control"
-                  placeholder="Enter Password"
-                  required
-                  aria-required="true"
-                />
-              </div>
+                  <div className="form-outline form-white mb-4">
+                    <input
+                      type="password"
+                      id="typePasswordX"
+                      className="form-control form-control-lg"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Enter Password"
+                      required
+                      aria-required="true"
+                    />
+                    <label className="form-label" htmlFor="typePasswordX">Mật khẩu</label>
+                  </div>
 
-              <div className="checkbox form-group">
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="checkbox"
-                    id="rememberMe"
-                    checked={rememberMe}
-                    onChange={() => setRememberMe(!rememberMe)}
-                  />
-                  <label className="form-check-label" htmlFor="rememberMe">
-                    Remember me
-                  </label>
-                </div>
-              </div>
+                  <p className="small mb-5 pb-lg-2">
+                    <a className="text-white-50" href="#!">Quên mật khẩu?</a>
+                  </p>
 
-              <div className="form-group">
-                <div className="btn-group">
                   <button
-                    className="btn btn-primary"
+                    className="btn btn-outline-light btn-lg px-5"
+                    type="submit"
                     onClick={loginHandler}
                   >
-                    Login
+                    Đăng nhập
                   </button>
-                  <Link to="/register" className="btn btn-secondary">
-                    Register
-                  </Link>
+
+                  <div className="d-flex justify-content-center text-center mt-4 pt-1">
+                    <a href="#!" className="text-white"><i className="fab fa-facebook-f fa-lg"></i></a>
+                    <a href="#!" className="text-white"><i className="fab fa-twitter fa-lg mx-4 px-2"></i></a>
+                    <a href="#!" className="text-white"><i className="fab fa-google fa-lg"></i></a>
+                  </div>
+                </div>
+
+                <div>
+                  <p className="mb-0">
+                    Don't have an account? <Link to="/register" className="text-white-50 fw-bold">Sign Up</Link>
+                  </p>
                 </div>
               </div>
             </div>
