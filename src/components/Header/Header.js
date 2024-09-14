@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { FaHome, FaShoppingCart, FaStore, FaUser, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
 import banner1 from './banner1.jpg';
 import banner3 from './banner3.jpg';
 
@@ -25,9 +26,9 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true, // Enable auto play
-    autoplaySpeed: 1500, // Set autoplay speed to 1.5 seconds
-    arrows: true // Show arrows
+    autoplay: true,
+    autoplaySpeed: 1500,
+    arrows: true
   };
 
   const styles = {
@@ -49,22 +50,25 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
       display: 'flex',
       alignItems: 'center'
     },
-    btnText: {
+    btnIcon: {
+      fontSize: '24px',
       color: '#007bff',
-      textDecoration: 'none',
-      marginRight: '15px'
+      marginRight: '15px',
+      textDecoration: 'none'
     },
     headerTitle: {
-      fontSize: '24px',
+      fontSize: '36px', // Tăng kích thước chữ
       fontWeight: 'bold',
       textAlign: 'center',
-      flexGrow: 1
+      flexGrow: 1,
+      margin: '0', // Xóa margin để căn giữa chính xác hơn
     },
     logout: {
       background: 'none',
       border: 'none',
       color: '#007bff',
-      cursor: 'pointer'
+      cursor: 'pointer',
+      fontSize: '24px'
     },
     containerFluid: {
       margin: '20px 0'
@@ -72,13 +76,13 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
     carouselImageWrapper: {
       position: 'relative',
       width: '100%',
-      height: '739px', // Fixed height
-      overflow: 'hidden' // Hide any overflow
+      height: '739px',
+      overflow: 'hidden'
     },
     carouselImage: {
       width: '100%',
       height: '100%',
-      objectFit: 'cover' // Ensure image covers the container
+      objectFit: 'cover'
     },
     slickArrow: {
       backgroundColor: 'rgba(0,0,0,0.5)',
@@ -95,15 +99,15 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
     slickArrowLeft: {
       position: 'absolute',
       top: '50%',
-      left: '10px', 
-      transform: 'translateY(-50%)', 
+      left: '10px',
+      transform: 'translateY(-50%)',
       cursor: 'pointer'
     },
     slickArrowRight: {
       position: 'absolute',
       top: '50%',
-      right: '10px', // Position right arrow
-      transform: 'translateY(-50%)', // Center vertically
+      right: '10px',
+      transform: 'translateY(-50%)',
       cursor: 'pointer'
     }
   };
@@ -113,36 +117,36 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
       <div style={styles.header}>
         <div style={styles.headerContent}>
           <div style={styles.leftSection}>
-            <Link to="/" style={styles.btnText}>
-              Home
+            <Link to="/" style={styles.btnIcon}>
+              <FaHome />
             </Link>
-            <Link to="/shop" style={styles.btnText}>
-              Shop
+            <Link to="/shop" style={styles.btnIcon}>
+              <FaStore /> {/* Biểu tượng cho Shop */}
             </Link>
           </div>
-          <h2 style={styles.headerTitle}>Cửa Hàng Đồng Hồ</h2>
+          <h2 style={styles.headerTitle}>Cửa Hàng Đồng Hồ</h2> {}
           <div style={styles.rightSection}>
             {currentAccount ? (
               <>
                 <span style={{ marginRight: '15px' }}>Xin chào, {currentAccount.username}</span>
-                <Link to="/cart" style={styles.btnText}>
-                  Cart
+                <Link to="/cart" style={styles.btnIcon}>
+                  <FaShoppingCart /> {/* Biểu tượng Cart */}
                 </Link>
                 <button
                   style={styles.logout}
                   type="button"
                   onClick={logoutHandler}
                 >
-                  Logout
+                  <FaSignOutAlt />
                 </button>
               </>
             ) : (
               <>
-                <Link to="/login" style={styles.btnText}>
-                  Login
+                <Link to="/login" style={styles.btnIcon}>
+                  <FaSignInAlt />
                 </Link>
-                <Link to="/register" style={styles.btnText}>
-                  Register
+                <Link to="/register" style={styles.btnIcon}>
+                  <FaUser />
                 </Link>
               </>
             )}

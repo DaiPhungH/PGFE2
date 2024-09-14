@@ -1,45 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 import HeaderComponent from '../Header/Header';
 import Footer from '../Footer/Footer';
+import dongho from './WatchesIMG/dongho.jpg';
+import dongho2 from './WatchesIMG/dongho2.jpg';
+import dongho3 from './WatchesIMG/dongho3.jpg';
+import dongho4 from './WatchesIMG/dongho4.jpg';
+import dongho5 from './WatchesIMG/dongho5.jpg';
+import dongho6 from './WatchesIMG/dongho6.jpg';
+import dongho7 from './WatchesIMG/dongho7.jpg';
+import dongho8 from './WatchesIMG/dongho8.jpg';
+import dongho9 from './WatchesIMG/dongho9.jpg';
+import dongho10 from './WatchesIMG/dongho10.jpg';
+import dongho11 from './WatchesIMG/dongho11.jpg';
+import dongho12 from './WatchesIMG/dongho12.jpg';
+
+// Mảng ảnh nhỏ
+const productImages = {
+  '1': dongho,
+  '2': dongho2,
+  '3': dongho3,
+  '4': dongho4,
+  '5': dongho5,
+  '6': dongho6,
+  '7': dongho7,
+  '8': dongho8,
+  '9': dongho9,
+  '10': dongho10,
+  '11': dongho11,
+  '12': dongho12,
+};
 
 const CartPage = () => {
-  const [cartItems, setCartItems] = useState([]);
-  const [products, setProducts] = useState([]);
-  const navigate = useNavigate();
+  const [cart, setCart] = useState([]);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
-    const savedProducts = JSON.parse(localStorage.getItem("products")) || [];
-    setProducts(savedProducts);
-
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const items = savedProducts
-      .map(product => {
-        const cartItem = cart.find(item => item.productId === product._id.$oid);
-        return cartItem ? { ...product, quantity: cartItem.quantity } : null;
-      })
-      .filter(item => item !== null);
-
-    setCartItems(items);
+    const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
+    setCart(storedCart);
   }, []);
 
-  const updateQuantity = (productId, change) => {
-    const updatedCartItems = cartItems.map(item => {
-      if (item._id.$oid === productId) {
-        const newQuantity = Math.max(item.quantity + change, 1); // Ensure quantity is at least 1
-        return { ...item, quantity: newQuantity };
-      }
-      return item;
-    });
-
-    setCartItems(updatedCartItems);
-    localStorage.setItem("cart", JSON.stringify(updatedCartItems.map(({ _id, quantity }) => ({ productId: _id.$oid, quantity }))));
+  const handleQuantityChange = (productId, newQuantity) => {
+    if (newQuantity < 1) return;
+    const updatedCart = cart.map(item =>
+      item.productId === productId ? { ...item, quantity: newQuantity } : item
+    );
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
-  const removeFromCart = (productId) => {
-    const updatedCartItems = cartItems.filter(item => item._id.$oid !== productId);
-    setCartItems(updatedCartItems);
-    localStorage.setItem("cart", JSON.stringify(updatedCartItems.map(({ _id, quantity }) => ({ productId: _id.$oid, quantity }))));
+  const handleRemoveFromCart = (productId) => {
+    const updatedCart = cart.filter(item => item.productId !== productId);
+    setCart(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
   };
 
   const formatCurrency = (price) => {
@@ -48,164 +61,145 @@ const CartPage = () => {
     return `${formattedPrice} VND`;
   };
 
-  const calculateTotal = () => {
-    return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+  const getTotalPrice = (price, quantity) => {
+    return formatCurrency(price * quantity);
   };
 
-  const handleBuyClick = () => {
-    navigate('/checkout');
+  const getCartTotal = () => {
+    return formatCurrency(cart.reduce((total, item) => total + (Number(item.price) * item.quantity), 0));
+  };
+
+  const handleCheckout = () => {
+    navigate('/checkout'); // Redirect to /checkout page
   };
 
   return (
-    <div>
+    <div style={styles.cartContainer}>
       <HeaderComponent />
-      <h1 style={styles.header}>Shopping Cart</h1>
-      <div style={styles.cartGrid}>
-        {cartItems.length === 0 ? (
-          <p>Your cart is empty.</p>  
+      <div style={styles.cartContent}>
+        <h1 style={styles.title}>Giỏ Hàng</h1>
+        {cart.length === 0 ? (
+          <p style={styles.emptyMessage}>Giỏ hàng của bạn đang trống.</p>
         ) : (
-          cartItems.map((item, i) => (
-            <div key={i} style={styles.cartCard}>
-              <img
-                src={item.img1}
-                alt={item.name}
-                style={styles.cartImage}
-              />
-              <h2 style={styles.cartName}>{item.name}</h2>
-              <p style={styles.cartPrice}>{formatCurrency(item.price)}</p>
-              <div style={styles.quantityContainer}>
-                <button
-                  style={styles.quantityButton}
-                  onClick={() => updateQuantity(item._id.$oid, -1)}
-                >
-                  -
-                </button>
-                <p style={styles.cartQuantity}>Quantity: {item.quantity}</p>
-                <button
-                  style={styles.quantityButton}
-                  onClick={() => updateQuantity(item._id.$oid, 1)}
-                >
-                  +
-                </button>
-              </div>
-              <button
-                style={styles.removeButton}
-                onClick={() => removeFromCart(item._id.$oid)}
-              >
-                Remove
-              </button>
+          <div>
+            <ul style={styles.cartList}>
+              {cart.map((item, index) => (
+                <li key={index} style={styles.cartItem}>
+                  <img src={productImages[item.productId]} alt={`Sản phẩm ${item.productId}`} style={styles.cartImage} />
+                  <div style={styles.cartInfo}>
+                    <span>{`Sản phẩm ID: ${item.productId}`}</span>
+                    <span>{`Giá: ${formatCurrency(item.price)}`}</span>
+                    <span>{`Tổng giá: ${getTotalPrice(item.price, item.quantity)}`}</span>
+                    <div style={styles.quantitySection}>
+                      <label htmlFor={`quantity-${item.productId}`} style={styles.quantityLabel}>Số lượng:</label>
+                      <input
+                        type="number"
+                        id={`quantity-${item.productId}`}
+                        value={item.quantity}
+                        min="1"
+                        onChange={(e) => handleQuantityChange(item.productId, Number(e.target.value))}
+                        style={styles.quantityInput}
+                      />
+                    </div>
+                  </div>
+                  <button style={styles.removeButton} onClick={() => handleRemoveFromCart(item.productId)}>Xóa</button>
+                </li>
+              ))}
+            </ul>
+            <div style={styles.cartTotal}>
+              <h2>Tổng tiền: {getCartTotal()}</h2>
+              <button style={styles.checkoutButton} onClick={handleCheckout}>Mua</button>
             </div>
-          ))
+          </div>
         )}
       </div>
-      {cartItems.length > 0 && (
-        <div style={styles.totalContainer}>
-          <h2 style={styles.totalText}>Total: {formatCurrency(calculateTotal())}</h2>
-          <button
-            style={styles.buyButton}
-            onClick={handleBuyClick}
-          >
-            Buy
-          </button>
-        </div>
-      )}
       <Footer />
     </div>
   );
 };
 
 const styles = {
-  header: {
-    textAlign: 'center',
-    margin: '20px 0',
-    fontSize: '2em',
-    color: '#333',
+  cartContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: '100vh',
+    backgroundColor: '#f9f9f9',
   },
-  cartGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
-    gap: '20px',
+  cartContent: {
     padding: '20px',
-  },
-  cartCard: {
-    border: '1px solid #ddd',
-    borderRadius: '8px',
-    padding: '20px',
-    textAlign: 'center',
     backgroundColor: '#fff',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-    transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-  },
-  cartImage: {
-    width: '100%',
-    height: 'auto',
-    marginBottom: '10px',
     borderRadius: '8px',
+    boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+    margin: '20px',
   },
-  cartName: {
-    fontSize: '16px',
-    fontWeight: 'bold',
-    margin: '10px 0 5px 0',
-    color: '#333',
+  title: {
+    fontSize: '2em',
+    marginBottom: '20px',
   },
-  cartPrice: {
-    fontSize: '18px',
-    color: '#555',
-  },
-  cartQuantity: {
-    fontSize: '16px',
+  emptyMessage: {
+    fontSize: '1.2em',
     color: '#666',
-    margin: '5px 0',
   },
-  quantityContainer: {
+  cartList: {
+    listStyleType: 'none',
+    padding: 0,
+  },
+  cartItem: {
+    padding: '10px',
+    borderBottom: '1px solid #ddd',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: '10px',
+    justifyContent: 'space-between',
   },
-  quantityButton: {
-    backgroundColor: '#007bff',
-    color: '#fff',
-    border: 'none',
-    padding: '8px 12px',
-    borderRadius: '5px',
-    cursor: 'pointer',
-    fontSize: '16px',
-    transition: 'background-color 0.2s ease',
+  cartImage: {
+    width: '120px',
+    height: '120px',
+    borderRadius: '4px',
+    marginRight: '15px',
+  },
+  cartInfo: {
+    flex: 1,
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  quantitySection: {
+    marginTop: '10px',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  quantityLabel: {
+    fontSize: '1em',
+    marginRight: '10px',
+  },
+  quantityInput: {
+    width: '60px',
+    padding: '5px',
+    fontSize: '1em',
+    border: '1px solid #ddd',
+    borderRadius: '4px',
   },
   removeButton: {
-    backgroundColor: '#ff4d4d',
+    backgroundColor: '#dc3545',
     color: '#fff',
     border: 'none',
-    padding: '10px',
-    borderRadius: '5px',
+    padding: '5px 10px',
+    borderRadius: '4px',
     cursor: 'pointer',
-    marginTop: '10px',
-    transition: 'background-color 0.2s ease',
   },
-  totalContainer: {
-    textAlign: 'center',
-    padding: '20px',
-    backgroundColor: '#f9f9f9',
-    borderRadius: '8px',
+  cartTotal: {
     marginTop: '20px',
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-  },
-  totalText: {
     fontSize: '1.5em',
     fontWeight: 'bold',
-    color: '#333',
+    textAlign: 'right',
   },
-  buyButton: {
+  checkoutButton: {
     backgroundColor: '#28a745',
     color: '#fff',
     border: 'none',
-    padding: '12px 20px',
-    borderRadius: '5px',
+    padding: '10px 20px',
+    borderRadius: '4px',
     cursor: 'pointer',
-    fontSize: '16px',
-    marginTop: '10px',
-    transition: 'background-color 0.2s ease',
+    marginTop: '20px',
   },
 };
 

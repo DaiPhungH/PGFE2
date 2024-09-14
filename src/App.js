@@ -18,7 +18,7 @@ function App() {
         <Route path="/register" element={<RegisterComponent />} />
         <Route path="/cart" element={<Cart/>} />
         <Route path="/shop" element={<ShopPage/>} />
-        <Route path="/detail/:productId" element={<DetailPage/>} />
+        <Route path="/detail/:productId" element={<DetailPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
         {/* <Route
           path="blog/:id"

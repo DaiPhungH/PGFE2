@@ -1,62 +1,43 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HeaderComponent from '../Header/Header';
 import Footer from '../Footer/Footer';
-import Navbar from './NavBar1';
+import dongho from "./WatchesIMG/dongho.jpg";
+import dongho2 from "./WatchesIMG/dongho2.jpg";
+import dongho3 from "./WatchesIMG/dongho3.jpg";
+import dongho4 from "./WatchesIMG/dongho4.jpg";
+import dongho5 from "./WatchesIMG/dongho5.jpg";
+import dongho6 from "./WatchesIMG/dongho6.jpg";
+import dongho7 from "./WatchesIMG/dongho7.jpg";
+import dongho8 from "./WatchesIMG/dongho8.jpg";
+import dongho9 from "./WatchesIMG/dongho9.jpg";
+import dongho10 from "./WatchesIMG/dongho10.jpg";
+import dongho11 from "./WatchesIMG/dongho11.jpg";
+import dongho12 from "./WatchesIMG/dongho12.jpg";
 
 const ShopPage = () => {
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [loading, setLoading] = useState(true);
-  const [hoveredImage, setHoveredImage] = useState(null); // State để lưu hình ảnh đang hover
-  const [searchTerm, setSearchTerm] = useState(''); // State để lưu từ khóa tìm kiếm
-  const [sortOrder, setSortOrder] = useState('none'); // State để lưu trữ tùy chọn sắp xếp
+  const [hoveredImage, setHoveredImage] = useState(null); 
+  const [searchTerm, setSearchTerm] = useState(''); 
+  const [sortOrder, setSortOrder] = useState('none'); 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch('https://firebasestorage.googleapis.com/v0/b/funix-subtitle.appspot.com/o/Boutique_products.json?alt=media&token=dc67a5ea-e3e0-479e-9eaf-5e01bcd09c74')
-      .then(response => response.json())
-      .then(data => {
-        setProducts(data);
-        setFilteredProducts(data);
-        setLoading(false);
-        localStorage.setItem("products", JSON.stringify(data));
-        
-        // Extract unique categories
-        const uniqueCategories = [...new Set(data.map(product => product.category))];
-        setCategories(uniqueCategories);
-      })
-      .catch(error => {
-        console.error('Lỗi khi lấy dữ liệu:', error);
-        setLoading(false);
-      });
-  }, []);
+  // Dữ liệu sản phẩm với hình ảnh khác nhau
+  const products = [
+    { _id: '1', name: 'Đồng hồ 1', price: '1000000', img1: dongho, category: 'Category 1' },
+    { _id: '2', name: 'Đồng hồ 2', price: '2000000', img1: dongho2, category: 'Category 2' },
+    { _id: '3', name: 'Đồng hồ 3', price: '3000000', img1: dongho3, category: 'Category 1' },
+    { _id: '4', name: 'Đồng hồ 4', price: '15000000', img1: dongho4, category: 'Category 1' },
+    { _id: '5', name: 'Đồng hồ 5', price: '11000000', img1: dongho5, category: 'Category 2' },
+    { _id: '6', name: 'Đồng hồ 6', price: '5000000', img1: dongho6, category: 'Category 1' },
+    { _id: '7', name: 'Đồng hồ 7', price: '4000000', img1: dongho7, category: 'Category 2' },
+    { _id: '8', name: 'Đồng hồ 8', price: '13500000', img1: dongho8, category: 'Category 1' },
+    { _id: '9', name: 'Đồng hồ 9', price: '1200000', img1: dongho9, category: 'Category 2' },
+    { _id: '10', name: 'Đồng hồ 10', price: '30000000', img1: dongho10, category: 'Category 1' },
+    { _id: '11', name: 'Đồng hồ 11', price: '18000000', img1: dongho11, category: 'Category 1' },
+    { _id: '12', name: 'Đồng hồ 12', price: '22000000', img1: dongho12, category: 'Category 2' },
+  ];
 
-  useEffect(() => {
-    let filteredByCategory = selectedCategory === ''
-      ? products
-      : products.filter(product => product.category === selectedCategory);
-
-    let filteredBySearch = searchTerm === ''
-      ? filteredByCategory
-      : filteredByCategory.filter(product =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-
-    if (sortOrder === 'asc') {
-      filteredBySearch = filteredBySearch.sort((a, b) => a.price - b.price);
-    } else if (sortOrder === 'desc') {
-      filteredBySearch = filteredBySearch.sort((a, b) => b.price - a.price);
-    }
-
-    setFilteredProducts(filteredBySearch);
-  }, [selectedCategory, searchTerm, sortOrder, products]);
-
-  const handleImageClick = (productId) => {
-    navigate(`/detail/${productId}`);
-  };
+  const [filteredProducts, setFilteredProducts] = useState(products);
 
   const formatCurrency = (price) => {
     const priceNumber = Number(price);
@@ -64,31 +45,33 @@ const ShopPage = () => {
     return `${formattedPrice} VND`;
   };
 
-  const handleSelectCategory = (category) => {
-    setSelectedCategory(category);
+  const handleImageClick = (productId) => {
+    navigate(`/detail/${productId}`);
   };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
+    const filteredBySearch = products.filter(product =>
+      product.name.toLowerCase().includes(event.target.value.toLowerCase())
+    );
+    setFilteredProducts(filteredBySearch);
   };
 
   const handleSortChange = (event) => {
     setSortOrder(event.target.value);
+    let sortedProducts = [...filteredProducts];
+    if (event.target.value === 'asc') {
+      sortedProducts.sort((a, b) => a.price - b.price);
+    } else if (event.target.value === 'desc') {
+      sortedProducts.sort((a, b) => b.price - a.price);
+    }
+    setFilteredProducts(sortedProducts);
   };
-
-  if (loading) {
-    return <div>Đang tải...</div>;
-  }
 
   return (
     <div style={styles.container}>
       <HeaderComponent />
       <div style={styles.mainContent}>
-        <Navbar
-          categories={categories}
-          onSelectCategory={handleSelectCategory}
-          selectedCategory={selectedCategory}
-        />
         <div style={styles.searchContainer}>
           <input
             type="text"
@@ -108,17 +91,17 @@ const ShopPage = () => {
           </select>
         </div>
         <div style={styles.productGrid}>
-          {filteredProducts.map((product, i) => (
+          {filteredProducts.map((product) => (
             <div
-              key={i}
-              style={{ ...styles.productCard, ...(hoveredImage === product._id.$oid ? styles.productCardHover : {}) }}
+              key={product._id}
+              style={{ ...styles.productCard, ...(hoveredImage === product._id ? styles.productCardHover : {}) }}
             >
               <img
                 src={product.img1}
                 alt={product.name}
-                style={{ ...styles.productImage, ...(hoveredImage === product._id.$oid ? styles.productImageHover : {}) }}
-                onClick={() => handleImageClick(product._id.$oid)}
-                onMouseEnter={() => setHoveredImage(product._id.$oid)}
+                style={{ ...styles.productImage, ...(hoveredImage === product._id ? styles.productImageHover : {}) }}
+                onClick={() => handleImageClick(product._id)}
+                onMouseEnter={() => setHoveredImage(product._id)}
                 onMouseLeave={() => setHoveredImage(null)}
               />
               <h2 style={styles.productName}>{product.name.toUpperCase()}</h2>
@@ -166,7 +149,7 @@ const styles = {
   },
   productGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(4, 1fr)',
+    gridTemplateColumns: 'repeat(4, 1fr)', // Hiển thị 4 sản phẩm trên 1 hàng
     gap: '20px',
     flex: '1',
   },
@@ -178,25 +161,25 @@ const styles = {
     backgroundColor: '#fff',
     boxShadow: '0 2px 5px rgba(0,0,0,0.1)',
     cursor: 'pointer',
-    transition: 'transform 0.2s ease', // Thêm hiệu ứng khi hover
+    transition: 'transform 0.2s ease',
   },
   productCardHover: {
-    transform: 'scale(1.02)', // Phóng to khi hover
+    transform: 'scale(1.02)',
   },
   productImage: {
     width: '100%',
     height: 'auto',
     marginBottom: '10px',
-    transition: 'filter 0.3s ease', // Thêm hiệu ứng mờ cho ảnh
+    transition: 'filter 0.3s ease',
   },
   productImageHover: {
-    filter: 'blur(3px)', // Hiệu ứng mờ
+    filter: 'blur(3px)',
   },
   productName: {
     fontSize: '16px',
     fontWeight: 'bold',
     margin: '10px 0 5px 0',
-    textTransform: 'uppercase', // Chữ viết hoa
+    textTransform: 'uppercase',
   },
   productPrice: {
     fontSize: '18px',
@@ -206,4 +189,3 @@ const styles = {
 };
 
 export default ShopPage;
-  
