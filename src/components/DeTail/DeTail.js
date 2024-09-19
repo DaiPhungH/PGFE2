@@ -17,18 +17,148 @@ import dongho12 from "./WatchesIMG/dongho12.jpg";
 
 // Mảng sản phẩm dùng cho DetailPage
 const productData = [
-  { _id: '1', name: 'Đồng hồ 1', price: '1000000', img1: dongho1, short_desc: 'Mô tả ngắn về đồng hồ 1', long_desc: 'Mô tả chi tiết về đồng hồ 1' },
-  { _id: '2', name: 'Đồng hồ 2', price: '2000000', img1: dongho2, short_desc: 'Mô tả ngắn về đồng hồ 2', long_desc: 'Mô tả chi tiết về đồng hồ 2' },
-  { _id: '3', name: 'Đồng hồ 3', price: '3000000', img1: dongho3, short_desc: 'Mô tả ngắn về đồng hồ 3', long_desc: 'Mô tả chi tiết về đồng hồ 3' },
-  { _id: '4', name: 'Đồng hồ 4', price: '15000000', img1: dongho4, short_desc: 'Mô tả ngắn về đồng hồ 4', long_desc: 'Mô tả chi tiết về đồng hồ 4' },
-  { _id: '5', name: 'Đồng hồ 5', price: '11000000', img1: dongho5, short_desc: 'Mô tả ngắn về đồng hồ 5', long_desc: 'Mô tả chi tiết về đồng hồ 5' },
-  { _id: '6', name: 'Đồng hồ 6', price: '5000000', img1: dongho6, short_desc: 'Mô tả ngắn về đồng hồ 6', long_desc: 'Mô tả chi tiết về đồng hồ 6' },
-  { _id: '7', name: 'Đồng hồ 7', price: '4000000', img1: dongho7, short_desc: 'Mô tả ngắn về đồng hồ 7', long_desc: 'Mô tả chi tiết về đồng hồ 7' },
-  { _id: '8', name: 'Đồng hồ 8', price: '13500000', img1: dongho8, short_desc: 'Mô tả ngắn về đồng hồ 8', long_desc: 'Mô tả chi tiết về đồng hồ 8' },
-  { _id: '9', name: 'Đồng hồ 9', price: '1200000', img1: dongho9, short_desc: 'Mô tả ngắn về đồng hồ 9', long_desc: 'Mô tả chi tiết về đồng hồ 9' },
-  { _id: '10', name: 'Đồng hồ 10', price: '30000000', img1: dongho10, short_desc: 'Mô tả ngắn về đồng hồ 10', long_desc: 'Mô tả chi tiết về đồng hồ 10' },
-  { _id: '11', name: 'Đồng hồ 11', price: '18000000', img1: dongho11, short_desc: 'Mô tả ngắn về đồng hồ 11', long_desc: 'Mô tả chi tiết về đồng hồ 11' },
-  { _id: '12', name: 'Đồng hồ 12', price: '22000000', img1: dongho12, short_desc: 'Mô tả ngắn về đồng hồ 12', long_desc: 'Mô tả chi tiết về đồng hồ 12' },
+  {
+    _id: '1',
+    name: 'Đồng hồ 1',
+    price: '1000000',
+    img1: dongho1,
+    specifications: [
+      { key: 'Chất liệu', value: 'Thép không gỉ' },
+      { key: 'Bảo hành', value: '12 tháng' },
+      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
+      { key: 'Mặt kính', value: 'Sapphire Crystal' },
+    ]
+  },
+  {
+    _id: '2',
+    name: 'Đồng hồ 2',
+    price: '2000000',
+    img1: dongho2,
+    specifications: [
+      { key: 'Chất liệu', value: 'Thép không gỉ' },
+      { key: 'Bảo hành', value: '12 tháng' },
+      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
+      { key: 'Mặt kính', value: 'Sapphire Crystal' },
+    ]
+  },
+  {
+    _id: '3',
+    name: 'Đồng hồ 3',
+    price: '3000000',
+    img1: dongho3,
+    specifications: [
+      { key: 'Chất liệu', value: 'Thép không gỉ' },
+      { key: 'Bảo hành', value: '12 tháng' },
+      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
+      { key: 'Mặt kính', value: 'Sapphire Crystal' },
+    ]
+  },
+  {
+    _id: '4',
+    name: 'Đồng hồ 4',
+    price: '15000000',
+    img1: dongho4,
+    specifications: [
+      { key: 'Chất liệu', value: 'Thép không gỉ' },
+      { key: 'Bảo hành', value: '12 tháng' },
+      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
+      { key: 'Mặt kính', value: 'Sapphire Crystal' },
+    ]
+  },
+  {
+    _id: '5',
+    name: 'Đồng hồ 5',
+    price: '11000000',
+    img1: dongho5,
+    specifications: [
+      { key: 'Chất liệu', value: 'Thép không gỉ' },
+      { key: 'Bảo hành', value: '12 tháng' },
+      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
+      { key: 'Mặt kính', value: 'Sapphire Crystal' },
+    ]
+  },
+  {
+    _id: '6',
+    name: 'Đồng hồ 6',
+    price: '5000000',
+    img1: dongho6,
+    specifications: [
+      { key: 'Chất liệu', value: 'Thép không gỉ' },
+      { key: 'Bảo hành', value: '12 tháng' },
+      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
+      { key: 'Mặt kính', value: 'Sapphire Crystal' },
+    ]
+  },
+  {
+    _id: '7',
+    name: 'Đồng hồ 7',
+    price: '4000000',
+    img1: dongho7,
+    specifications: [
+      { key: 'Chất liệu', value: 'Thép không gỉ' },
+      { key: 'Bảo hành', value: '12 tháng' },
+      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
+      { key: 'Mặt kính', value: 'Sapphire Crystal' },
+    ]
+  },
+  {
+    _id: '8',
+    name: 'Đồng hồ 8',
+    price: '13500000',
+    img1: dongho8,
+    specifications: [
+      { key: 'Chất liệu', value: 'Thép không gỉ' },
+      { key: 'Bảo hành', value: '12 tháng' },
+      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
+      { key: 'Mặt kính', value: 'Sapphire Crystal' },
+    ]
+  },
+  {
+    _id: '9',
+    name: 'Đồng hồ 9',
+    price: '1200000',
+    img1: dongho9,
+    specifications: [
+      { key: 'Chất liệu', value: 'Thép không gỉ' },
+      { key: 'Bảo hành', value: '12 tháng' },
+      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
+      { key: 'Mặt kính', value: 'Sapphire Crystal' },
+    ]
+  },
+  {
+    _id: '10',
+    name: 'Đồng hồ 10',
+    price: '30000000',
+    img1: dongho10,
+    specifications: [
+      { key: 'Chất liệu', value: 'Thép không gỉ' },
+      { key: 'Bảo hành', value: '12 tháng' },
+      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
+      { key: 'Mặt kính', value: 'Sapphire Crystal' },
+    ]
+  },{
+    _id: '11',
+    name: 'Đồng hồ 11',
+    price: '18000000',
+    img1: dongho11,
+    specifications: [
+      { key: 'Chất liệu', value: 'Thép không gỉ' },
+      { key: 'Bảo hành', value: '12 tháng' },
+      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
+      { key: 'Mặt kính', value: 'Sapphire Crystal' },
+    ]
+  },{
+    _id: '12',
+    name: 'Đồng hồ 12',
+    price: '22000000',
+    img1: dongho12,
+    specifications: [
+      { key: 'Chất liệu', value: 'Thép không gỉ' },
+      { key: 'Bảo hành', value: '12 tháng' },
+      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
+      { key: 'Mặt kính', value: 'Sapphire Crystal' },
+    ]
+  },
 ];
 
 const DetailPage = () => {
@@ -67,9 +197,24 @@ const DetailPage = () => {
         <div style={styles.infoSection}>
           <h1 style={styles.productTitle}>{product.name}</h1>
           <p style={styles.productPrice}>{formatCurrency(product.price)}</p>
-          <p style={styles.productShortDesc}><strong>Mô tả ngắn:</strong> {product.short_desc}</p>
-          <p style={styles.productLongDesc}><strong>Mô tả chi tiết:</strong> {product.long_desc}</p>
-          
+
+          {/* Bảng thông số kỹ thuật */}
+          <table style={styles.specTable}>
+            <thead>
+              <tr>
+                <th colSpan="2" style={styles.specTitle}>Thông số kỹ thuật</th>
+              </tr>
+            </thead>
+            <tbody>
+              {product.specifications && product.specifications.map((spec, index) => (
+                <tr key={index} style={styles.specRow}>
+                  <td style={styles.specKey}>{spec.key}</td>
+                  <td style={styles.specValue}>{spec.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
           <div style={styles.quantitySection}>
             <label htmlFor="quantity" style={styles.quantityLabel}>Số lượng:</label>
             <input
@@ -90,12 +235,14 @@ const DetailPage = () => {
   );
 };
 
+// Hàm format tiền tệ
 const formatCurrency = (price) => {
   const priceNumber = Number(price);
   const formattedPrice = new Intl.NumberFormat('vi-VN').format(priceNumber);
   return `${formattedPrice} VND`;
 };
 
+// Hàm thêm vào giỏ hàng
 const addToCart = (productId, quantity, productPrice) => {
   let cart = JSON.parse(localStorage.getItem("cart")) || [];
   const existingProductIndex = cart.findIndex(item => item.productId === productId);
@@ -113,6 +260,7 @@ const addToCart = (productId, quantity, productPrice) => {
   localStorage.setItem("cart", JSON.stringify(cart));
 };
 
+// Styles
 const styles = {
   detailContainer: {
     display: 'flex',
@@ -158,15 +306,34 @@ const styles = {
     margin: '10px 0',
     textAlign: 'center',
   },
-  productShortDesc: {
-    fontSize: '1.2em',
-    color: '#666',
-    margin: '10px 0',
+  specTable: {
+    width: '100%',
+    borderCollapse: 'collapse',
+    margin: '20px 0',
+    textAlign: 'left',
+    border: '1px solid #ddd',
   },
-  productLongDesc: {
+  specTitle: {
+    fontSize: '1.5em',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    padding: '10px',
+    backgroundColor: '#f2f2f2',
+  },
+  specRow: {
+    borderBottom: '1px solid #ddd',
+  },
+  specKey: {
+    padding: '10px',
     fontSize: '1.2em',
-    color: '#666',
-    margin: '10px 0',
+    fontWeight: 'bold',
+    backgroundColor: '#f9f9f9',
+    width: '40%',
+  },
+  specValue: {
+    padding: '10px',
+    fontSize: '1.1em',
+    backgroundColor: '#fff',
   },
   quantitySection: {
     margin: '20px 0',
