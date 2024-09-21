@@ -18,7 +18,7 @@ const CheckoutPage = () => {
     e.preventDefault();
     setIsSubmitted(true);
 
-    // Điều hướng về trang chủ sau 1.5 giây
+    // Điều hướng về trang chủ sau 3 giây
     setTimeout(() => {
       navigate('/');
     }, 3000);

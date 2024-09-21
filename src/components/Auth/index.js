@@ -23,7 +23,11 @@ const LoginComponent = () => {
     if (loginSuccess) {
       navigate("/");
     } else {
-      setErrorMessage("Tên người dùng hoặc mật khẩu không chính xác");
+      setErrorMessage(
+        <span style={{ color: 'black' }}>
+          Tên người dùng hoặc mật khẩu không chính xác
+        </span>
+      );
     }
   };
 
