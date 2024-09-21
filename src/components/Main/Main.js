@@ -1,4 +1,3 @@
-
 import "bootstrap/dist/css/bootstrap.css";
 import HeaderComponent from "../Header/Header";
 import BodyComponent from "../Body/Body";

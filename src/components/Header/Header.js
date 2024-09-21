@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -9,6 +9,9 @@ import banner3 from './banner3.jpg';
 
 const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
   const [currentAccount, setCurrentAccountState] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const navigate = useNavigate();
+  const sliderRef = useRef(null);
 
   useEffect(() => {
     const account = JSON.parse(localStorage.getItem("CurrentAccount"));
@@ -28,7 +31,23 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 1500,
-    arrows: true
+    arrows: false, // Ẩn các nút chuyển mặc định của slick-carousel
+    beforeChange: () => setIsDragging(true), // Thiết lập trạng thái kéo khi bắt đầu thay đổi slide
+    afterChange: () => setIsDragging(false) // Đặt trạng thái kéo về false khi hoàn thành thay đổi slide
+  };
+
+  const handleCarouselClick = (e) => {
+    if (!isDragging) {
+      navigate('/shop');
+    }
+  };
+
+  const goToPreviousSlide = () => {
+    sliderRef.current.slickPrev();
+  };
+
+  const goToNextSlide = () => {
+    sliderRef.current.slickNext();
   };
 
   const styles = {
@@ -57,11 +76,11 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
       textDecoration: 'none'
     },
     headerTitle: {
-      fontSize: '36px', // Tăng kích thước chữ
+      fontSize: '36px',
       fontWeight: 'bold',
       textAlign: 'center',
       flexGrow: 1,
-      margin: '0', // Xóa margin để căn giữa chính xác hơn
+      margin: '0'
     },
     logout: {
       background: 'none',
@@ -71,13 +90,15 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
       fontSize: '24px'
     },
     containerFluid: {
-      margin: '20px 0'
+      margin: '20px 0',
+      position: 'relative'
     },
     carouselImageWrapper: {
       position: 'relative',
       width: '100%',
       height: '739px',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      cursor: 'pointer'
     },
     carouselImage: {
       width: '100%',
@@ -95,20 +116,16 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
       color: '#fff',
       fontSize: '20px',
       zIndex: 1000,
+      cursor: 'pointer',
+      position: 'absolute',
+      top: '50%',
+      transform: 'translateY(-50%)'
     },
     slickArrowLeft: {
-      position: 'absolute',
-      top: '50%',
-      left: '10px',
-      transform: 'translateY(-50%)',
-      cursor: 'pointer'
+      left: '10px'
     },
     slickArrowRight: {
-      position: 'absolute',
-      top: '50%',
-      right: '10px',
-      transform: 'translateY(-50%)',
-      cursor: 'pointer'
+      right: '10px'
     }
   };
 
@@ -121,16 +138,16 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
               <FaHome />
             </Link>
             <Link to="/shop" style={styles.btnIcon}>
-              <FaStore /> {/* Biểu tượng cho Shop */}
+              <FaStore />
             </Link>
           </div>
-          <h2 style={styles.headerTitle}>Cửa Hàng Đồng Hồ</h2> {}
+          <h2 style={styles.headerTitle}>Cửa Hàng Đồng Hồ</h2>
           <div style={styles.rightSection}>
             {currentAccount ? (
               <>
                 <span style={{ marginRight: '15px' }}>Xin chào, {currentAccount.username}</span>
                 <Link to="/cart" style={styles.btnIcon}>
-                  <FaShoppingCart /> {/* Biểu tượng Cart */}
+                  <FaShoppingCart />
                 </Link>
                 <button
                   style={styles.logout}
@@ -154,14 +171,29 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
         </div>
       </div>
       <div style={styles.containerFluid}>
-        <Slider {...settings} nextArrow={<div style={styles.slickArrow + ' ' + styles.slickArrowRight}>&gt;</div>} prevArrow={<div style={styles.slickArrow + ' ' + styles.slickArrowLeft}>&lt;</div>}>
-          <div style={styles.carouselImageWrapper}>
+        <Slider
+          {...settings}
+          ref={sliderRef}
+        >
+          <div style={styles.carouselImageWrapper} onClick={handleCarouselClick}>
             <img src={banner1} alt="Banner 1" style={styles.carouselImage} />
           </div>
-          <div style={styles.carouselImageWrapper}>
+          <div style={styles.carouselImageWrapper} onClick={handleCarouselClick}>
             <img src={banner3} alt="Banner 3" style={styles.carouselImage} />
           </div>
         </Slider>
+        <div
+          style={{ ...styles.slickArrow, ...styles.slickArrowLeft }}
+          onClick={goToPreviousSlide}
+        >
+          &lt;
+        </div>
+        <div
+          style={{ ...styles.slickArrow, ...styles.slickArrowRight }}
+          onClick={goToNextSlide}
+        >
+          &gt;
+        </div>
       </div>
     </>
   );

@@ -1,173 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import HeaderComponent from '../Header/Header';
+import ProductList from '../Body/Body';
 import Footer from '../Footer/Footer';
-import dongho1 from "./WatchesIMG/dongho.jpg";
-import dongho2 from "./WatchesIMG/dongho2.jpg";
-import dongho3 from "./WatchesIMG/dongho3.jpg";
-import dongho4 from "./WatchesIMG/dongho4.jpg";
-import dongho5 from "./WatchesIMG/dongho5.jpg";
-import dongho6 from "./WatchesIMG/dongho6.jpg";
-import dongho7 from "./WatchesIMG/dongho7.jpg";
-import dongho8 from "./WatchesIMG/dongho8.jpg";
-import dongho9 from "./WatchesIMG/dongho9.jpg";
-import dongho10 from "./WatchesIMG/dongho10.jpg";
-import dongho11 from "./WatchesIMG/dongho11.jpg";
-import dongho12 from "./WatchesIMG/dongho12.jpg";
-
-// Mảng sản phẩm dùng cho DetailPage
-const productData = [
-  {
-    _id: '1',
-    name: 'Đồng hồ 1',
-    price: '1000000',
-    img1: dongho1,
-    specifications: [
-      { key: 'Chất liệu', value: 'Thép không gỉ' },
-      { key: 'Bảo hành', value: '12 tháng' },
-      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
-      { key: 'Mặt kính', value: 'Sapphire Crystal' },
-    ]
-  },
-  {
-    _id: '2',
-    name: 'Đồng hồ 2',
-    price: '2000000',
-    img1: dongho2,
-    specifications: [
-      { key: 'Chất liệu', value: 'Thép không gỉ' },
-      { key: 'Bảo hành', value: '12 tháng' },
-      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
-      { key: 'Mặt kính', value: 'Sapphire Crystal' },
-    ]
-  },
-  {
-    _id: '3',
-    name: 'Đồng hồ 3',
-    price: '3000000',
-    img1: dongho3,
-    specifications: [
-      { key: 'Chất liệu', value: 'Thép không gỉ' },
-      { key: 'Bảo hành', value: '12 tháng' },
-      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
-      { key: 'Mặt kính', value: 'Sapphire Crystal' },
-    ]
-  },
-  {
-    _id: '4',
-    name: 'Đồng hồ 4',
-    price: '15000000',
-    img1: dongho4,
-    specifications: [
-      { key: 'Chất liệu', value: 'Thép không gỉ' },
-      { key: 'Bảo hành', value: '12 tháng' },
-      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
-      { key: 'Mặt kính', value: 'Sapphire Crystal' },
-    ]
-  },
-  {
-    _id: '5',
-    name: 'Đồng hồ 5',
-    price: '11000000',
-    img1: dongho5,
-    specifications: [
-      { key: 'Chất liệu', value: 'Thép không gỉ' },
-      { key: 'Bảo hành', value: '12 tháng' },
-      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
-      { key: 'Mặt kính', value: 'Sapphire Crystal' },
-    ]
-  },
-  {
-    _id: '6',
-    name: 'Đồng hồ 6',
-    price: '5000000',
-    img1: dongho6,
-    specifications: [
-      { key: 'Chất liệu', value: 'Thép không gỉ' },
-      { key: 'Bảo hành', value: '12 tháng' },
-      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
-      { key: 'Mặt kính', value: 'Sapphire Crystal' },
-    ]
-  },
-  {
-    _id: '7',
-    name: 'Đồng hồ 7',
-    price: '4000000',
-    img1: dongho7,
-    specifications: [
-      { key: 'Chất liệu', value: 'Thép không gỉ' },
-      { key: 'Bảo hành', value: '12 tháng' },
-      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
-      { key: 'Mặt kính', value: 'Sapphire Crystal' },
-    ]
-  },
-  {
-    _id: '8',
-    name: 'Đồng hồ 8',
-    price: '13500000',
-    img1: dongho8,
-    specifications: [
-      { key: 'Chất liệu', value: 'Thép không gỉ' },
-      { key: 'Bảo hành', value: '12 tháng' },
-      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
-      { key: 'Mặt kính', value: 'Sapphire Crystal' },
-    ]
-  },
-  {
-    _id: '9',
-    name: 'Đồng hồ 9',
-    price: '1200000',
-    img1: dongho9,
-    specifications: [
-      { key: 'Chất liệu', value: 'Thép không gỉ' },
-      { key: 'Bảo hành', value: '12 tháng' },
-      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
-      { key: 'Mặt kính', value: 'Sapphire Crystal' },
-    ]
-  },
-  {
-    _id: '10',
-    name: 'Đồng hồ 10',
-    price: '30000000',
-    img1: dongho10,
-    specifications: [
-      { key: 'Chất liệu', value: 'Thép không gỉ' },
-      { key: 'Bảo hành', value: '12 tháng' },
-      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
-      { key: 'Mặt kính', value: 'Sapphire Crystal' },
-    ]
-  },{
-    _id: '11',
-    name: 'Đồng hồ 11',
-    price: '18000000',
-    img1: dongho11,
-    specifications: [
-      { key: 'Chất liệu', value: 'Thép không gỉ' },
-      { key: 'Bảo hành', value: '12 tháng' },
-      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
-      { key: 'Mặt kính', value: 'Sapphire Crystal' },
-    ]
-  },{
-    _id: '12',
-    name: 'Đồng hồ 12',
-    price: '22000000',
-    img1: dongho12,
-    specifications: [
-      { key: 'Chất liệu', value: 'Thép không gỉ' },
-      { key: 'Bảo hành', value: '12 tháng' },
-      { key: 'Chất liệu vỏ', value: 'Thép không gỉ 316' },
-      { key: 'Mặt kính', value: 'Sapphire Crystal' },
-    ]
-  },
-];
+import ProductData from '../ProductCard/ProductCard';
 
 const DetailPage = () => {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
 
   useEffect(() => {
-    const productDetail = productData.find(item => item._id === productId);
+    const productDetail = ProductData.find(item => item._id === productId);
     if (productDetail) {
       setProduct(productDetail);
     } else {
@@ -179,8 +25,16 @@ const DetailPage = () => {
     if (product) {
       const productPrice = parseInt(product.price, 10);
       addToCart(product._id, quantity, productPrice);
-      alert('Đã thêm vào giỏ hàng');
+      setModalMessage('Đã thêm vào giỏ hàng');
+      setShowModal(true);
+      setTimeout(() => {
+        setShowModal(false);
+      }, 3000); // Ẩn modal sau 1.5 giây
     }
+  };
+
+  const handleModalClick = () => {
+    setShowModal(false); // Tắt modal khi click vào
   };
 
   if (!product) {
@@ -198,7 +52,6 @@ const DetailPage = () => {
           <h1 style={styles.productTitle}>{product.name}</h1>
           <p style={styles.productPrice}>{formatCurrency(product.price)}</p>
 
-          {/* Bảng thông số kỹ thuật */}
           <table style={styles.specTable}>
             <thead>
               <tr>
@@ -226,11 +79,19 @@ const DetailPage = () => {
               style={styles.quantityInput}
             />
           </div>
-          
+
           <button style={styles.addToCartButton} onClick={handleAddToCart}>Thêm vào giỏ hàng</button>
         </div>
       </div>
+      <ProductList />
       <Footer />
+      {showModal && (
+        <div style={styles.modal} onClick={handleModalClick}>
+          <div style={styles.modalContent}>
+            <p>{modalMessage}</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -248,15 +109,12 @@ const addToCart = (productId, quantity, productPrice) => {
   const existingProductIndex = cart.findIndex(item => item.productId === productId);
 
   if (existingProductIndex !== -1) {
-    // Cập nhật số lượng sản phẩm và tổng giá nếu đã có trong giỏ hàng
     cart[existingProductIndex].quantity += quantity;
     cart[existingProductIndex].totalPrice = cart[existingProductIndex].quantity * productPrice;
   } else {
-    // Thêm sản phẩm mới vào giỏ hàng
     cart.push({ productId, quantity, totalPrice: quantity * productPrice });
   }
 
-  // Lưu giỏ hàng vào localStorage
   localStorage.setItem("cart", JSON.stringify(cart));
 };
 
@@ -349,29 +207,45 @@ const styles = {
     width: '60px',
     padding: '5px',
     fontSize: '1em',
-    border: '1px solid #ddd',
-    borderRadius: '4px',
+    textAlign: 'center',
   },
   addToCartButton: {
-    display: 'block',
-    width: '100%',
+    marginTop: '20px',
     padding: '15px',
-    fontSize: '1.5em',
-    color: '#fff',
     backgroundColor: '#007bff',
+    color: '#fff',
     border: 'none',
     borderRadius: '4px',
+    fontSize: '1.2em',
     cursor: 'pointer',
-    transition: 'background-color 0.3s',
+    width: '100%',
   },
-  addToCartButtonHover: {
-    backgroundColor: '#0056b3',
+  modal: {
+    position: 'fixed',
+    top: '0',
+    left: '0',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Mờ nền
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 9999, // Cập nhật zIndex
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: '30px',
+    borderRadius: '10px',
+    boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+    maxWidth: '500px',
+    textAlign: 'center',
+    fontSize: '1.5em',
+    fontWeight: 'bold',
   },
   error: {
-    textAlign: 'center',
     padding: '20px',
-    color: 'red',
-    fontSize: '1.5em',
+    textAlign: 'center',
+    color: '#d9534f',
   },
 };
 

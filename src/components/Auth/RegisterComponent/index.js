@@ -1,7 +1,6 @@
-import { useState } from "react";
-import "bootstrap/dist/css/bootstrap.css";
+import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-
+import "bootstrap/dist/css/bootstrap.css";
 
 const RegisterComponent = () => {
   const [username, setUsername] = useState("");
@@ -14,7 +13,6 @@ const RegisterComponent = () => {
   const navigate = useNavigate();
 
   const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
   const validatePassword = (password) => /[a-zA-Z]/.test(password) && /[0-9]/.test(password);
 
   const clearRegisterForm = () => {
@@ -76,62 +74,56 @@ const RegisterComponent = () => {
         </div>
       )}
       <section className="vh-100 gradient-custom">
-        <div className="container h-100 d-flex align-items-center justify-content-center">
-          <div className="row w-100">
-            <div className="col-lg-6 col-md-8 col-12 mx-auto">
-              <div className="card bg-dark text-white border-0 rounded">
-                <div className="card-body p-5">
-                  <h2 className="fw-bold mb-4 text-center">Đăng ký tài khoản mới</h2>
+        <div className="container py-5 h-100">
+          <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+              <div className="card bg-dark text-white">
+                <div className="card-body p-5 text-center">
+                  <h2 className="fw-bold mb-4 text-uppercase">Đăng ký tài khoản mới</h2>
+
                   <form onSubmit={signUpHandler}>
-                    <div className="mb-4">
-                      <label htmlFor="username" className="form-label">Tên người dùng</label>
+                    <div className="form-outline form-white mb-4">
                       <input
                         type="text"
                         id="username"
-                        className="form-control input-white"
+                        className="form-control form-control-lg"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        placeholder="Nhập tên người dùng"
+                        placeholder="Tên người dùng"
                         required
                       />
                     </div>
 
-                    <div className="mb-4">
-                      <label htmlFor="email" className="form-label">Email</label>
+                    <div className="form-outline form-white mb-4">
                       <input
                         type="email"
                         id="email"
-                        className="form-control input-white"
+                        className="form-control form-control-lg"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Nhập email"
+                        placeholder="Email"
                         required
                       />
                     </div>
 
-                    <div className="mb-4">
-                      <label htmlFor="password" className="form-label">Mật khẩu</label>
+                    <div className="form-outline form-white mb-4">
                       <input
                         type="password"
                         id="password"
-                        className="form-control input-white"
+                        className="form-control form-control-lg"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Nhập mật khẩu"
+                        placeholder="Mật khẩu"
                         required
                       />
-                      <small className="form-text" style={{ color: '#ffffff' }}>
-                        Mật khẩu gồm chữ cái và số.
-                      </small>
-
+                      <small className="form-text" style={{ color: '#ffffff' }}>Mật khẩu gồm cả chữ và số.</small>
                     </div>
 
-                    <div className="mb-4">
-                      <label htmlFor="repassword" className="form-label">Nhập lại mật khẩu</label>
+                    <div className="form-outline form-white mb-4">
                       <input
                         type="password"
                         id="repassword"
-                        className="form-control input-white"
+                        className="form-control form-control-lg"
                         value={repassword}
                         onChange={(e) => setRePassword(e.target.value)}
                         placeholder="Nhập lại mật khẩu"
@@ -139,15 +131,88 @@ const RegisterComponent = () => {
                       />
                     </div>
 
-                    <button type="submit" className="btn btn-primary w-100 mb-2">Đăng ký</button>
-                    <Link to="/login" className="btn btn-secondary w-100">Đăng nhập</Link>
+                    <button type="submit" className="btn btn-outline-light btn-lg px-4 mb-2">Đăng ký</button>
                   </form>
+
+                  <div className="signup-container mt-4 pt-1">
+                    <p className="mb-0">
+                      Bạn Đã Có Tài Khoản? <Link to="/login" className="text-white-50 fw-bold">Đăng Nhập</Link>
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Inline Styles */}
+      <style jsx>{`
+        .gradient-custom {
+          background: linear-gradient(to right, #6a11cb, #2575fc);
+          position: fixed; /* Fix position to viewport */
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100vh; /* Full height of viewport */
+          overflow: hidden; /* Hide overflow */
+          z-index: -1; /* Place behind content */
+        }
+
+        .card {
+          border-radius: 1rem;
+          height: 90vh; /* Adjust height as needed */
+          display: flex;
+          flex-direction: column;
+          justify-content: center; /* Center content vertically */
+        }
+
+        .card-body {
+          padding: 5rem; /* Adjust padding as needed */
+        }
+
+        .modal-overlay {
+          position: absolute; /* Position overlay over card */
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.7); /* Slightly darker for more coverage */
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000; /* Ensure it appears above other content */
+        }
+
+        .modal-content {
+          background: #fff;
+          padding: 20px;
+          border-radius: 8px;
+          text-align: center;
+        }
+
+        .modal-content h3 {
+          margin-bottom: 20px;
+        }
+
+        .modal-content button {
+          background: #6a11cb;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+
+        .button-container button,
+        .button-container a {
+          margin: 5px;
+        }
+
+        .signup-container {
+          margin-top: 30px; /* Adjust margin as needed */
+        }
+      `}</style>
     </>
   );
 };

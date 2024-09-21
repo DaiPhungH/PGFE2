@@ -1,39 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import { useNavigate } from 'react-router-dom';
 import HeaderComponent from '../Header/Header';
 import Footer from '../Footer/Footer';
-import dongho from './WatchesIMG/dongho.jpg';
-import dongho2 from './WatchesIMG/dongho2.jpg';
-import dongho3 from './WatchesIMG/dongho3.jpg';
-import dongho4 from './WatchesIMG/dongho4.jpg';
-import dongho5 from './WatchesIMG/dongho5.jpg';
-import dongho6 from './WatchesIMG/dongho6.jpg';
-import dongho7 from './WatchesIMG/dongho7.jpg';
-import dongho8 from './WatchesIMG/dongho8.jpg';
-import dongho9 from './WatchesIMG/dongho9.jpg';
-import dongho10 from './WatchesIMG/dongho10.jpg';
-import dongho11 from './WatchesIMG/dongho11.jpg';
-import dongho12 from './WatchesIMG/dongho12.jpg';
-
-// Mảng ảnh nhỏ
-const productImages = {
-  '1': dongho,
-  '2': dongho2,
-  '3': dongho3,
-  '4': dongho4,
-  '5': dongho5,
-  '6': dongho6,
-  '7': dongho7,
-  '8': dongho8,
-  '9': dongho9,
-  '10': dongho10,
-  '11': dongho11,
-  '12': dongho12,
-};
-
+import ProductData from '../ProductCard/ProductCard';
 const CartPage = () => {
   const [cart, setCart] = useState([]);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedCart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -66,11 +38,11 @@ const CartPage = () => {
   };
 
   const getCartTotal = () => {
-    return formatCurrency(cart.reduce((total, item) => total + (Number(item.price) * item.quantity), 0));
+    return formatCurrency(cart.reduce((total, item) => total + (ProductData[item.productId - 1].price * item.quantity), 0));
   };
 
   const handleCheckout = () => {
-    navigate('/checkout'); // Redirect to /checkout page
+    navigate('/checkout');
   };
 
   return (
@@ -85,11 +57,11 @@ const CartPage = () => {
             <ul style={styles.cartList}>
               {cart.map((item, index) => (
                 <li key={index} style={styles.cartItem}>
-                  <img src={productImages[item.productId]} alt={`Sản phẩm ${item.productId}`} style={styles.cartImage} />
+                  <img src={ProductData[item.productId - 1].img1} alt={`Sản phẩm ${item.productId}`} style={styles.cartImage} />
                   <div style={styles.cartInfo}>
                     <span>{`Sản phẩm ID: ${item.productId}`}</span>
-                    <span>{`Giá: ${formatCurrency(item.price)}`}</span>
-                    <span>{`Tổng giá: ${getTotalPrice(item.price, item.quantity)}`}</span>
+                    <span>{`Giá: ${formatCurrency(ProductData[item.productId - 1].price)}`}</span>
+                    <span>{`Tổng giá: ${getTotalPrice(ProductData[item.productId - 1].price, item.quantity)}`}</span>
                     <div style={styles.quantitySection}>
                       <label htmlFor={`quantity-${item.productId}`} style={styles.quantityLabel}>Số lượng:</label>
                       <input
