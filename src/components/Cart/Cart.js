@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import HeaderComponent from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ProductData from '../ProductCard/ProductCard';
+
 const CartPage = () => {
   const [cart, setCart] = useState([]);
   const navigate = useNavigate();
@@ -59,7 +60,8 @@ const CartPage = () => {
                 <li key={index} style={styles.cartItem}>
                   <img src={ProductData[item.productId - 1].img1} alt={`Sản phẩm ${item.productId}`} style={styles.cartImage} />
                   <div style={styles.cartInfo}>
-                    <span>{`Sản phẩm ID: ${item.productId}`}</span>
+                    <span>{`ID: ${item.productId}`}</span>
+                    <span>{`Tên sản phẩm: ${ProductData[item.productId - 1].name}`}</span>
                     <span>{`Giá: ${formatCurrency(ProductData[item.productId - 1].price)}`}</span>
                     <span>{`Tổng giá: ${getTotalPrice(ProductData[item.productId - 1].price, item.quantity)}`}</span>
                     <div style={styles.quantitySection}>
