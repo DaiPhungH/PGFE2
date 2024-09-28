@@ -1,5 +1,6 @@
 import React from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
+import { MDBContainer, MDBRow, MDBCol } from 'mdb-react-ui-kit';
+import logo from './logo.jpg'; // Đảm bảo đường dẫn này đúng với vị trí file logo của bạn
 
 const footerStyle = {
   backgroundColor: 'black',
@@ -24,10 +25,10 @@ const Footer = () => {
         <MDBRow className='mt-3'>
           <MDBCol md="3" lg="4" xl="3" className='mx-auto mb-4'>
             <h6 className='text-uppercase fw-bold mb-4'>
-              <MDBIcon icon="gem" className="me-3" />
-              {/* Company name or logo */}
+              <img src={logo} alt="Logo" style={{ width: '150px' }} />
+              {/* Tên công ty hoặc logo */}
             </h6>
-            {/* Additional content for this section */}
+            {/* Nội dung bổ sung cho phần này */}
           </MDBCol>
 
           <MDBCol md="2" lg="2" xl="2" className='mx-auto mb-4'>
@@ -68,7 +69,7 @@ const Footer = () => {
             </p>
             <p>
               <a href='#!' className='text-reset' style={linkStyle} onMouseOver={e => e.currentTarget.style.textDecoration = linkHoverStyle.textDecoration} onMouseOut={e => e.currentTarget.style.textDecoration = linkStyle.textDecoration}>
-                Lastest Posts
+                Latest Posts
               </a>
             </p>
             <p>
@@ -103,8 +104,6 @@ const Footer = () => {
           </MDBCol>
         </MDBRow>
       </MDBContainer>
-
-      
     </footer>
   );
 }

@@ -19,7 +19,7 @@ const ProductList = () => {
 
   return (
     <div>
-      <h1 style={styles.title}>SẢN PHẨM BÁN CHẠY</h1>
+      <h1 style={styles.title}>TOP SẢN PHẨM BÁN CHẠY</h1>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px', padding: '0 40px' }}>
         {ProductData.map((product) => (
           <div

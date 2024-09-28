@@ -29,7 +29,7 @@ const DetailPage = () => {
       setShowModal(true);
       setTimeout(() => {
         setShowModal(false);
-      }, 3000); // Ẩn modal sau 1.5 giây
+      }, 3000); // Ẩn modal sau 3 giây
     }
   };
 
@@ -46,7 +46,12 @@ const DetailPage = () => {
       <HeaderComponent />
       <div style={styles.contentContainer}>
         <div style={styles.imageSection}>
-          <img src={product.img1} alt={product.name} style={styles.productImage} />
+          <img
+            src={product.img1}
+            alt={product.name}
+            className="product-image"
+            style={styles.productImage}
+          />
         </div>
         <div style={styles.infoSection}>
           <h1 style={styles.productTitle}>{product.name}</h1>
@@ -92,6 +97,17 @@ const DetailPage = () => {
           </div>
         </div>
       )}
+      <style>
+        {`
+          .product-image {
+            transition: transform 0.3s ease; /* Thêm hiệu ứng chuyển tiếp */
+          }
+
+          .product-image:hover {
+            transform: scale(1.1); /* Phóng to 10% khi rê chuột */
+          }
+        `}
+      </style>
     </div>
   );
 };
