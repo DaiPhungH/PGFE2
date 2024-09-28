@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProductData from '../ProductCard/ProductCard';
+import LiveChatComponent from '../LiveChat/LiveChat';
 
 const ProductList = () => {
   const [hoveredImage, setHoveredImage] = useState(null);
@@ -58,21 +59,25 @@ const ProductList = () => {
           </div>
         ))}
       </div>
+
+     
+      <LiveChatComponent />
+
     </div>
   );
 };
+
 const styles = {
   title: {
     textAlign: 'center',
-    fontSize: '2.5rem', // Kích thước chữ lớn hơn
+    fontSize: '2.5rem',
     fontWeight: 'bold',
-    color: '#4A90E2', // Màu sắc hiện đại
+    color: '#4A90E2',
     textTransform: 'uppercase',
-    letterSpacing: '2px', // Khoảng cách giữa các chữ
-    margin: '20px 0', // Khoảng cách phía trên và dưới
-    textShadow: '1px 1px 2px rgba(0, 0, 0, 0.2)', // Hiệu ứng bóng cho chữ
+    letterSpacing: '2px',
+    margin: '20px 0',
+    textShadow: '1px 1px 2px rgba(0, 0, 0, 0.2)',
   },
 };
-
 
 export default ProductList;

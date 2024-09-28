@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import HeaderComponent from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ProductData from '../ProductCard/ProductCard';
+import LiveChatComponent from '../LiveChat/LiveChat';
+
 
 const ShopPage = () => {
   const [hoveredImage, setHoveredImage] = useState(null);
@@ -113,6 +115,8 @@ const ShopPage = () => {
           ))}
         </div>
       </div>
+      <LiveChatComponent />
+
       <Footer />
     </div>
   );

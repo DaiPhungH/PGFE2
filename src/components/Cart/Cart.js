@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import HeaderComponent from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ProductData from '../ProductCard/ProductCard';
+import LiveChatComponent from '../LiveChat/LiveChat';
+
 
 const CartPage = () => {
   const [cart, setCart] = useState([]);
@@ -87,6 +89,8 @@ const CartPage = () => {
           </div>
         )}
       </div>
+      <LiveChatComponent />
+
       <Footer />
     </div>
   );
