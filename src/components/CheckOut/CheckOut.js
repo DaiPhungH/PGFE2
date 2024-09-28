@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HeaderComponent from '../Header/Header';
 import Footer from '../Footer/Footer';
+import LiveChatComponent from '../LiveChat/LiveChat';
+
 
 const CheckoutPage = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +11,7 @@ const CheckoutPage = () => {
     email: '',
     phone: '',
     address: '',
+    paymentMethod: '', // Thêm phương thức thanh toán
   });
 
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -95,6 +98,23 @@ const CheckoutPage = () => {
                       style={styles.textarea}
                     />
                   </div>
+                  <div className="form-group">
+                    <label htmlFor="paymentMethod" style={styles.label}>Phương Thức Thanh Toán</label>
+                    <select
+                      name="paymentMethod"
+                      id="paymentMethod"
+                      value={formData.paymentMethod}
+                      onChange={handleChange}
+                      required
+                      className="form-control"
+                      style={styles.input}
+                    >
+                      <option value="" disabled>Chọn phương thức thanh toán</option>
+                      <option value="creditCard">Thẻ Tín Dụng</option>
+                      <option value="paypal">Thanh Toán Khi Nhận H</option>
+                      <option value="bankTransfer">Chuyển Khoản Ngân Hàng</option>
+                    </select>
+                  </div>
                   <div className="text-center">
                     <button type="submit" className="btn btn-block" style={styles.submitButton}>
                       Đặt Hàng
@@ -105,6 +125,7 @@ const CheckoutPage = () => {
             </div>
           </div>
         </div>
+        <LiveChatComponent />
       </div>
 
       <Footer />
@@ -170,10 +191,6 @@ const styles = {
     borderRadius: '5px',
     cursor: 'pointer',
     transition: 'background-color 0.3s ease, transform 0.2s ease',
-    '&:hover': {
-      backgroundColor: '#218838',
-      transform: 'scale(1.05)',
-    },
   },
   overlay: {
     position: 'fixed',
@@ -206,6 +223,5 @@ const styles = {
     color: '#555',
   },
 };
-
 
 export default CheckoutPage;

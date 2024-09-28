@@ -5,7 +5,6 @@ const LiveChatComponent = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [username, setUsername] = useState("Người dùng"); // Tên người dùng
 
   // Danh sách câu trả lời tự động
   const autoResponses = [
@@ -16,7 +15,7 @@ const LiveChatComponent = () => {
   const handleSendMessage = () => {
     if (inputMessage.trim() !== "") {
       // Thêm tin nhắn của người dùng vào
-      setMessages([...messages, { sender: username, text: inputMessage }]);
+      setMessages([...messages, { sender: "You", text: inputMessage }]);
       
       // Reset ô nhập liệu
       setInputMessage("");
@@ -64,7 +63,7 @@ const LiveChatComponent = () => {
                   key={index}
                   style={{ 
                     ...styles.chatMessage, 
-                    ...(msg.sender === username ? styles.userMessage : styles.supportMessage) 
+                    ...(msg.sender === "You" ? styles.userMessage : styles.supportMessage) 
                   }}
                 >
                   <strong>{msg.sender}:</strong> {msg.text}
