@@ -31,15 +31,9 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 1500,
-    arrows: false, // Ẩn các nút chuyển mặc định của slick-carousel
-    beforeChange: () => setIsDragging(true), // Thiết lập trạng thái kéo khi bắt đầu thay đổi slide
-    afterChange: () => setIsDragging(false) // Đặt trạng thái kéo về false khi hoàn thành thay đổi slide
-  };
-
-  const handleCarouselClick = (e) => {
-    if (!isDragging) {
-      navigate('/shop');
-    }
+    arrows: false,
+    beforeChange: () => setIsDragging(true),
+    afterChange: () => setIsDragging(false),
   };
 
   const goToPreviousSlide = () => {
@@ -53,57 +47,57 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
   const styles = {
     header: {
       backgroundColor: '#f8f8f8',
-      padding: '10px 0'
+      padding: '10px 0',
     },
     headerContent: {
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
-      padding: '0 20px'
+      padding: '0 20px',
     },
     leftSection: {
       display: 'flex',
-      alignItems: 'center'
+      alignItems: 'center',
     },
     rightSection: {
       display: 'flex',
-      alignItems: 'center'
+      alignItems: 'center',
     },
     btnIcon: {
       fontSize: '24px',
       color: '#007bff',
       marginRight: '15px',
-      textDecoration: 'none'
+      textDecoration: 'none',
     },
     headerTitle: {
       fontSize: '36px',
       fontWeight: 'bold',
       textAlign: 'center',
       flexGrow: 1,
-      margin: '0'
+      margin: '0',
     },
     logout: {
       background: 'none',
       border: 'none',
       color: '#007bff',
       cursor: 'pointer',
-      fontSize: '24px'
+      fontSize: '24px',
     },
     containerFluid: {
       margin: '20px 0',
-      position: 'relative'
+      position: 'relative',
     },
     carouselImageWrapper: {
       position: 'relative',
       width: '100%',
       height: '739px',
       overflow: 'hidden',
-      cursor: 'pointer'
+      cursor: 'pointer',
     },
     carouselImage: {
       width: '100%',
       height: '100%',
-      objectFit: 'cover'
+      objectFit: 'cover',
     },
     slickArrow: {
       backgroundColor: 'rgba(0,0,0,0.5)',
@@ -119,14 +113,26 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
       cursor: 'pointer',
       position: 'absolute',
       top: '50%',
-      transform: 'translateY(-50%)'
+      transform: 'translateY(-50%)',
     },
     slickArrowLeft: {
-      left: '10px'
+      left: '10px',
     },
     slickArrowRight: {
-      right: '10px'
-    }
+      right: '10px',
+    },
+    viewMoreButton: {
+      padding: '10px 20px',
+      backgroundColor: '#007bff',
+      color: '#fff',
+      border: 'none',
+      borderRadius: '5px',
+      cursor: 'pointer',
+      fontSize: '18px',
+      zIndex: 1001,
+      display: 'block',
+      margin: '20px auto', // Căn giữa nút
+    },
   };
 
   return (
@@ -149,11 +155,7 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
                 <Link to="/cart" style={styles.btnIcon}>
                   <FaShoppingCart />
                 </Link>
-                <button
-                  style={styles.logout}
-                  type="button"
-                  onClick={logoutHandler}
-                >
+                <button style={styles.logout} type="button" onClick={logoutHandler}>
                   <FaSignOutAlt />
                 </button>
               </>
@@ -170,28 +172,30 @@ const HeaderComponent = ({ onLogout, setCurrentAccount }) => {
           </div>
         </div>
       </div>
+
+      {/* Carousel */}
       <div style={styles.containerFluid}>
-        <Slider
-          {...settings}
-          ref={sliderRef}
-        >
-          <div style={styles.carouselImageWrapper} onClick={handleCarouselClick}>
+        <Slider {...settings} ref={sliderRef}>
+          {/* Banner 1 */}
+          <div style={styles.carouselImageWrapper}>
             <img src={banner1} alt="Banner 1" style={styles.carouselImage} />
           </div>
-          <div style={styles.carouselImageWrapper} onClick={handleCarouselClick}>
-            <img src={banner3} alt="Banner 3" style={styles.carouselImage} />
+
+          {/* Banner 2 */}
+          <div style={styles.carouselImageWrapper}>
+            <img src={banner3} alt="Banner 2" style={styles.carouselImage} />
           </div>
         </Slider>
-        <div
-          style={{ ...styles.slickArrow, ...styles.slickArrowLeft }}
-          onClick={goToPreviousSlide}
-        >
+
+        {/* Nút Xem Thêm Bên Dưới */}
+        <button style={styles.viewMoreButton} onClick={() => navigate('/shop')}>
+          Xem thêm
+        </button>
+
+        <div style={{ ...styles.slickArrow, ...styles.slickArrowLeft }} onClick={goToPreviousSlide}>
           &lt;
         </div>
-        <div
-          style={{ ...styles.slickArrow, ...styles.slickArrowRight }}
-          onClick={goToNextSlide}
-        >
+        <div style={{ ...styles.slickArrow, ...styles.slickArrowRight }} onClick={goToNextSlide}>
           &gt;
         </div>
       </div>
